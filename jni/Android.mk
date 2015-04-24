@@ -17,26 +17,15 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-# Change to false if target API is < 16 (4.1 JellyBean)
-TARGET_IS_PIE = false
-
 LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
 LOCAL_MODULE    := radamsa
 LOCAL_SRC_FILES := radamsa.c
-LOCAL_CFLAGS    := -Wall -O2 -c -std=c99 -D_GNU_SOURCE -DANDROID
-
-ifeq ($(TARGET_IS_PIE),true)
-  LOCAL_CFLAGS += -fPIE
-  LOCAL_LDFLAGS += -fPIE -pie
-  BIN_SUFFIX := _PIE
-else
-  BIN_SUFFIX := _noPIE
-endif
+LOCAL_CFLAGS    := -Wall -Werror -O3 -std=c99 -D_GNU_SOURCE -DANDROID
 
 include $(BUILD_EXECUTABLE)
 
 all:POST_BUILD_EVENT
 POST_BUILD_EVENT:
-	cp libs/armeabi/radamsa bin/radamsa$(BIN_SUFFIX)
+	cp libs/armeabi/radamsa bin/radamsa
