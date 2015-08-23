@@ -16,7 +16,7 @@ An Android port of the [radamsa](https://code.google.com/p/ouspg/wiki/Radamsa) f
 Sample ARM EABI5 executable is included in the bin directory for convenience.
 
 ```
-Latest update: 24 April 2015 (using ndk-r10d)
+Latest update: 23 August 2015 (using ndk-r10e)
 
-MD5 (bin/radamsa) = 5643f701b291969578d5e76fba0d128f
+MD5 (bin/radamsa) = 16aa4945b7af8ed0492ea83941b0307e
 ```
