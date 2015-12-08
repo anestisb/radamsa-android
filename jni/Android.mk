@@ -3,7 +3,7 @@
 #
 #   Anestis Bechtsoudis <anestis@census-labs.com>
 #
-#   Copyright 2014 by Census SA. All Rights Reserved.
+#   Copyright 2014 - 2015 by Census SA. All Rights Reserved.
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -25,7 +25,3 @@ LOCAL_SRC_FILES := radamsa.c
 LOCAL_CFLAGS    := -Wall -Werror -O3 -std=c99 -D_GNU_SOURCE -DANDROID
 
 include $(BUILD_EXECUTABLE)
-
-all:POST_BUILD_EVENT
-POST_BUILD_EVENT:
-	cp libs/armeabi/radamsa bin/radamsa

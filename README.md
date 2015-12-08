@@ -9,14 +9,5 @@ An Android port of the [radamsa](https://code.google.com/p/ouspg/wiki/Radamsa) f
 * Tweak your system's PATH  to include NDK root, build/tools & prebuilt/<target>/bin
 * If compiling for devices < API 16 (4.1 JellyBean), you need to modify jni/Application.mk due to PIE incompatibility.
 * Invoke ndk-build in repo root path
-* adb push bin/radamsa to your device
+* adb push libs/<arch>/radamsa to your device
 * Have fun :)
-
-
-Sample ARM EABI5 executable is included in the bin directory for convenience.
-
-```
-Latest update: 23 August 2015 (using ndk-r10e)
-
-MD5 (bin/radamsa) = 16aa4945b7af8ed0492ea83941b0307e
-```
