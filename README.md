@@ -6,7 +6,7 @@ Radamsa is a test case generator for robustness testing, a.k.a. a fuzzer. It is 
 
 ```
  $ # please please please fuzz your programs. here is one way to get data for it:
- $ sudo apt-get gcc make git
+ $ sudo apt-get install gcc make git wget
  $ git clone https://github.com/aoh/radamsa.git && cd radamsa && make && sudo make install
  $ echo "HAL 9000" | radamsa
 ```
@@ -15,7 +15,7 @@ Radamsa is a test case generator for robustness testing, a.k.a. a fuzzer. It is 
 
 Programming is hard. All nontrivial programs have bugs in them. What's more, even the simplest typical mistakes are in some of the most widely used programming languages usually enough for attackers to gain undesired powers.
 
-Fuzzing is one of the techniques to find such unexpected behavior from programs. The idea is simply to subject the program to various kinds of inputs and see what happens. There are two parts in this process: getting the various kinds of inputs and how to see what happens. Radamsa is a solution to the first part, and the second part is typically a short shell script. Testers usually have a more or less vague idea what should *not* happen, and they try to find out if this is so. This kind of testing is often referred to as negative testing, being the opposite of positive unit- or integration testing. Developers know a service should not crash, should not exponential amounts of memory, should not get stuck in an infinite loop, etc. Attackers know that they can probably turn certain kinds of memory safety bugs into exploits, so they fuzz typically instrumented versions of the target programs and wait for such errors to be found. In theory, the idea is to counterprove by finding a counterexample a theorem about the program stating that for all inputs something doesn't happen.
+Fuzzing is one of the techniques to find such unexpected behavior from programs. The idea is simply to subject the program to various kinds of inputs and see what happens. There are two parts in this process: getting the various kinds of inputs and how to see what happens. Radamsa is a solution to the first part, and the second part is typically a short shell script. Testers usually have a more or less vague idea what should *not* happen, and they try to find out if this is so. This kind of testing is often referred to as negative testing, being the opposite of positive unit- or integration testing. Developers know a service should not crash, should not consume exponential amounts of memory, should not get stuck in an infinite loop, etc. Attackers know that they can probably turn certain kinds of memory safety bugs into exploits, so they fuzz typically instrumented versions of the target programs and wait for such errors to be found. In theory, the idea is to counterprove by finding a counterexample a theorem about the program stating that for all inputs something doesn't happen.
 
 There are many kinds of fuzzers and ways to apply them. Some trace the target program and generate test cases based on the behavior. Some need to know the format of the data and generate test cases based on that information. Radamsa is an extremely "black-box" fuzzer, because it needs no information about the program nor the format of the data. One can pair it with coverage analysis during testing to likely improve the quality of the sample set during a continuous test run, but this is not mandatory. The main goal is to first get tests running easily, and then refine the technique applied if necessary.
 
@@ -70,7 +70,7 @@ Here radamsa decided to add one 'a' to the input. Let's try that again.
  ːaaa
 ```
 
-Now we got another result. By default radamsa will grab a random seed from /dev/urandom if it is not given a specific random state to start from, and you will generally see a different result every time it is started, though for small inputs you might see the same or the original fairly often . The random state to use can be given with the -s parameter, which is followed by a number. Using the same random state will result in the sama data being generated.
+Now we got another result. By default radamsa will grab a random seed from /dev/urandom if it is not given a specific random state to start from, and you will generally see a different result every time it is started, though for small inputs you might see the same or the original fairly often. The random state to use can be given with the -s parameter, which is followed by a number. Using the same random state will result in the same data being generated.
 
 ```
  $ echo "Fuzztron 2000" | radamsa --seed 4
@@ -271,15 +271,29 @@ CVE-2013-1691 | Mozilla Firefox | OUSPG
 CVE-2013-1708 | Mozilla Firefox | OUSPG
 CVE-2013-4082 | Wireshark | found by cons0ul
 CVE-2013-1732 | Mozilla Firefox | OUSPG
+CVE-2014-0526 | Adobe Reader X/XI | Pedro Ribeiro (pedrib@gmail.com)
 CVE-2014-3669 | PHP
 CVE-2014-3668 | PHP
+CVE-2014-8449 | Adobe Reader X/XI | Pedro Ribeiro (pedrib@gmail.com)
 CVE-2014-3707 | cURL | Symeon Paraschoudis
 CVE-2014-7933 | Chrome | OUSPG
 CVE-2015-0797 | Mozilla Firefox | OUSPG
 CVE-2015-0813 | Mozilla Firefox | OUSPG
 CVE-2015-1220 | Chrome | OUSPG
 CVE-2015-1224 | Chrome | OUSPG
-
+CVE-2015-2819 | Sybase SQL    | vah_13 (ERPScan)
+CVE-2015-2820 | SAP Afaria    | vah_13 (ERPScan)
+CVE-2015-7091 | Apple QuickTime |  Pedro Ribeiro (pedrib@gmail.com)
+CVE-2015-8330 | SAP PCo agent | Mathieu GELI (ERPScan)
+CVE-2016-1928 | SAP HANA hdbxsengine |Mathieu Geli (ERPScan)
+CVE-2016-3979 | SAP NetWeaver | @ret5et (ERPScan)
+CVE-2016-3980 | SAP NetWeaver | @ret5et (ERPScan)
+CVE-2016-4015 | SAP NetWeaver | @vah_13 (ERPScan)
+CVE-2016-4015 | SAP NetWeaver | @vah_13 (ERPScan)
+CVE-2016-9562 | SAP NetWeaver | @vah_13 (ERPScan)
+CVE-2017-5371 | SAP ASE OData | @vah_13 (ERPScan)
+CVE-2017-9843 | SAP NETWEAVER | @vah_13 (ERPScan)
+CVE-2017-9845 | SAP NETWEAVER | @vah_13 (ERPScan)
 
 We would like to thank the Chromium project and Mozilla for analyzing, fixing and reporting further many of the above mentioned issues, CERT-FI for feedback and disclosure handling, and other users, projects and vendors who have responsibly taken care of uncovered bugs.
 
@@ -313,7 +327,7 @@ Q: I can't install! I don't have root access on the machine!
 A: You can omit the $ make install part and just run radamsa from bin/radamsa in the build directory, or copy it somewhere else and use from there.
 
 Q: Radamsa takes several GB of memory to compile!1  
-A: This is most likely due to an issue with your C compiler. Use prebuilt images or try the quick build instrucitons in this page.
+A: This is most likely due to an issue with your C compiler. Use prebuilt images or try the quick build instructions in this page.
 
 Q: Radamsa does not compile using the instructions in this page!  
 A: Please file an issue at https://github.com/aoh/radamsa/issues if you don't see a similar one already filed, send email (aohelin@gmail.com) or IRC (#radamsa on freenode).
@@ -350,7 +364,7 @@ A: Yes.
 
 ## Warnings
 
-Use of data generated by radamsa, especially when targeting buggy programs running with high privileges, can result in arbitrarily bad things to happen. A typical unexpected issue is caused by a file manager, automatic indexer or antivirus scanner trying to do something to fuzzed data before they are being tested intentionally. We have seen spontaneous reboots, system hangs, file system curruption, loss of data and other nastiness. When in doubt, use a disposable system, throwaway profile, chroot jail, sandbox, separate user account or an emulator.
+Use of data generated by radamsa, especially when targeting buggy programs running with high privileges, can result in arbitrarily bad things to happen. A typical unexpected issue is caused by a file manager, automatic indexer or antivirus scanner trying to do something to fuzzed data before they are being tested intentionally. We have seen spontaneous reboots, system hangs, file system corruption, loss of data and other nastiness. When in doubt, use a disposable system, throwaway profile, chroot jail, sandbox, separate user account or an emulator.
 
 Not safe when used as prescribed.
 
