@@ -7,7 +7,7 @@ Radamsa is a test case generator for robustness testing, a.k.a. a fuzzer. It is 
 ```
  $ # please please please fuzz your programs. here is one way to get data for it:
  $ sudo apt-get install gcc make git wget
- $ git clone https://github.com/aoh/radamsa.git && cd radamsa && make && sudo make install
+ $ git clone https://github.com/anestisb/radamsa-android.git && cd radamsa && make && sudo make install
  $ echo "HAL 9000" | radamsa
 ```
 
@@ -39,7 +39,7 @@ Software requirements for building from sources:
 
 ## Building Radamsa
 ```
- $ git clone https://github.com/aoh/radamsa.git
+ $ git clone https://github.com/anestisb/radamsa-android.git
  $ cd radamsa
  $ make
  $ sudo make install # optional, you can also just grab bin/radamsa
