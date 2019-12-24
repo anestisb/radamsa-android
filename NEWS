@@ -1,3 +1,7 @@
+Changes in 0.6
+ - added pcapng awareness (thanks to Alberto Zaccagni and Guglielmo Fachini of Nozomi Networks)
+ - automatic uniqueness filter catches most duplicates (-C flag)
+ - added UDP output
 Changes in 0.5
  - %s in output path is the suffix of the main sample file used, if applicable, based on commit by Ditmar Wendt
  - added --seek to seek a specific testcase
